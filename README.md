@@ -14,6 +14,7 @@ A lightweight desktop **scrcpy** launcher to open apps from your **Android** pho
 - Download and install ADB drivers **(optional)** 
 - Download and install your phone's USB drivers
 - Download and unzip latest release of the **oxygenlink**
+- Enable USB debugging on your device
 #### Step 1. Getting ADB drivers **(optional)** 
 1. Go to [clockworkmod ADB drivers page](https://adb.clockworkmod.com/)
 2. Download .msi installer
@@ -26,6 +27,9 @@ Simply google **"(your phone brand) USB drivers"**, then download and install th
 2. Grab .zip (or .7z) archive from the latest release
 3. Unzip it into folder (e.g `Desktop/apps/`)
 4. Move the **shortcut** file **(oxygenlink.lnk)** to your desktop.
+#### Step 4. Enabling USB debugging
+This step also depends on your phone manufacturer. 
+Google **"(your phone brand) how to enable USB debugging"**
 
 ### Usage
 #### After you are done installing **oxygenlink**, you can finally run it.
@@ -64,6 +68,7 @@ Simply google **"(your phone brand) USB drivers"**, then download and install th
 2. Make sure you have installed the USB drivers for your Android device.
 3. Check your USB cable connection (and ensure your phone is actually plugged into the PC).
 4. Open **Device Manager** on your PC and check if there are any unknown USB devices marked with a yellow exclamation mark icon.
+5. Check if you enabled USB-debugging on your Android device and allowed your PC
 ### "Folder in use" error when trying to delete a directory:
 1. Open **Task Manager**.
 2. Go to the **Details** tab.
