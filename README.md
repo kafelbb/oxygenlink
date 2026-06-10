@@ -37,6 +37,7 @@ Google **"(your phone brand) how to enable USB debugging"**
  #### Important!
  After you launch **oxygenlink** for the first time, you will need to wait 5-10 minutes for the program to grab all of your app icons and cache them
  <br>**Do not** remove *cached/* directory, or you will need to wait again for the program to grab icons.
+ Also make sure that your phone is unlocked when you use the prog
 ### Compiling
 #### If you want to compile this abomination, here's how to do it:
 1. Install Java Development Kit 21
