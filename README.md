@@ -43,6 +43,9 @@ Simply google **"(your phone brand) USB drivers"**, then download and install th
 6. After it finishes the **oxyconnect.java** helper class, **open Microsoft Visual Studio** (or any your favourite IDE)
 7. Generate CMake cache
 8. Build oxygenconnect.exe (either via x64-Debug or x64-Release config)
+1. Download the latest scrcpy release
+1. Unzip it into the tools folder
+1. Rename scrcpy-0.6.7 (or whatever) folder to just scrcpy
 
 ## Troubleshooting
 
