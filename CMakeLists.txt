@@ -27,33 +27,49 @@ target_link_libraries(lib PUBLIC
     sfml-system
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_executable(oxygenlink WIN32 
-        src/main.cpp
-        src/resources.rc
-    )
-    
-    target_link_libraries(oxygenlink PRIVATE 
-        lib
-    )
-    
-    target_link_options(oxygenlink PRIVATE "/SUBSYSTEM:WINDOWS")
+if(WIN32)
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_executable(oxygenlink WIN32 
+            src/main.cpp
+            src/resources.rc
+        )
+        
+        target_link_options(oxygenlink PRIVATE "/SUBSYSTEM:WINDOWS" "/ENTRY:mainCRTStartup")
+    else()
+        add_executable(oxygenlink 
+            src/main.cpp
+            src/resources.rc
+        )
+    endif()
 else()
-    add_executable(oxygenlink 
-        src/main.cpp
-        src/resources.rc
-    )
-    target_link_libraries(oxygenlink PRIVATE lib)
+    add_executable(oxygenlink src/main.cpp)
+endif()
+
+target_link_libraries(oxygenlink PRIVATE lib)
+
+if(WIN32)
+    include(InstallRequiredSystemLibraries)
+endif()
+
+install(TARGETS oxygenlink DESTINATION ".")
+
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/oxyconnect.jar" DESTINATION ".")
+
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/tools/" DESTINATION "tools")
+
+if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
+    install(FILES ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION ".")
 endif()
 
 
-file(TO_CMAKE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools" TOOLS_SRC_DIR)
-file(TO_CMAKE_PATH "$$<TARGET_FILE_DIR:oxygenlink>/tools" TOOLS_DST_DIR)
+set(OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 
-add_custom_command(
-    TARGET oxygenlink POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory 
-            ${CMAKE_CURRENT_SOURCE_DIR}/tools 
-            $<TARGET_FILE_DIR:oxygenlink>/tools
-    COMMENT "cloning /tools dir to build directory"
+add_custom_target(copy_launcher_assets ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTPUT_DIR}/tools"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/tools" "${OUTPUT_DIR}/tools"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/src/oxyconnect.jar" "${OUTPUT_DIR}/oxyconnect.jar"
+    COMMENT "Copying tools/ directory and oxyconnect.jar to the build output folder..."
+    VERBATIM
 )
+add_dependencies(oxygenlink copy_launcher_assets)

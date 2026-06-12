@@ -11,7 +11,12 @@
 #include "icongrabber.h"
 
 #include <SFML/Graphics.hpp>
+
+#ifdef _WIN32
 #include <windows.h>
+#include <fcntl.h>
+#include <io.h>
+#endif
 
 std::vector<std::string> shared_pkgs;
 std::vector<sf::Texture> shared_tex;
@@ -55,7 +60,20 @@ void check_ev(const sf::Event& ev, sf::RenderWindow& win, float& target_scroll ,
 	}
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+int main(int argc, char* argv[]) {
+
+	#ifdef _WIN32
+		if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+			FILE* fp;
+			freopen_s(&fp, "CONOUT$", "w", stdout);
+			freopen_s(&fp, "CONOUT$", "w", stderr);
+			freopen_s(&fp, "CONIN$", "r", stdin);
+
+			std::ios::sync_with_stdio();
+
+			std::cout << std::endl;
+		}
+	#endif
 
 	std::cout << "oxygenlink " << PROG_VER << std::endl;
 

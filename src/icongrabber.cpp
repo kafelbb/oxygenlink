@@ -115,6 +115,8 @@ void check_apps(std::vector<std::string> apps) {
 
 	log_info("checker", "found apps: ", ""+std::to_string(found_apps.size()));
 	log_info("checker", "got apps: ", "" +std::to_string(apps.size()));
+
+	exec_com("tools\\scrcpy\\adb push oxyconnect.jar /data/local/tmp/oxyconnect.jar");
 	
 	for (const auto& pkg : apps) {
 		if (found_apps.find(pkg) == found_apps.end()) {
