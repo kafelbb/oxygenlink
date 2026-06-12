@@ -47,6 +47,7 @@ public class oxyconnect {
 
             Bitmap bitmap = Bitmap.createBitmap(64, 64, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
+            
             icon.setBounds(0, 0, 64, 64);
             icon.draw(canvas);
             

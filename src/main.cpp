@@ -36,9 +36,10 @@ void adb_worker() {
     adb_data_ready = true;
 }
 
-void check_ev(const sf::Event& ev, sf::RenderWindow& win, float& target_scroll ,float& current_scroll, float& max_scroll) {
+void check_ev(const sf::Event& ev, sf::RenderWindow& win, float& target_scroll ,float& current_scroll, float& max_scroll, const std::thread& a) {
 	if (ev.type == sf::Event::Closed) {
 		win.close();
+		a.~thread();
 	}
 	if (ev.type == sf::Event::MouseWheelScrolled) {
 		if (ev.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
@@ -150,7 +151,7 @@ int main(int argc, char* argv[]) {
 					mouse_y = ev.mouseMove.y;
 				}
 				else {
-					check_ev(ev, win, target_scroll, current_scroll, max_scroll);
+					check_ev(ev, win, target_scroll, current_scroll, max_scroll, adb_thread);
 				}
 			}
 		}
@@ -161,7 +162,7 @@ int main(int argc, char* argv[]) {
 					mouse_y = ev.mouseMove.y;
 				}
 				else {
-					check_ev(ev, win, target_scroll, current_scroll, max_scroll);
+					check_ev(ev, win, target_scroll, current_scroll, max_scroll, adb_thread);
 				}
 				needs_update = true;
 			}
