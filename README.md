@@ -1,4 +1,5 @@
 ﻿# oxygenlink
+ ## ⚠ This project is not being actively maintained. Also there is a known bug with icons being random color rectangles when connected to MediaTek phones
 ### [ Русский ](drawable/readme/rus.md)
 A lightweight desktop **scrcpy** launcher to open apps from your **Android** phone as resizable windows on your PC.
 <table>
